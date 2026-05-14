@@ -21,10 +21,7 @@ class AnnouncementController extends Controller
     {
          $response = Http::get($this->apiUrl);
 
-        return response()->json([
-        'raw' => $response->body(),
-        'decoded' => $response->json()
-    ]);
+        return response()->json($response->json());
     }
 
     // OPTIONAL: GET single announcement
