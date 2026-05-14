@@ -2,73 +2,82 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Gateway\RemoteGateway;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AnnouncementController extends Controller
 {
-    private string $apiUrl;
+    public function __construct(
+        private RemoteGateway $gateway,
+    ) {}
 
-    public function __construct()
+    public function index(): View
     {
-        // Make sure this exists in your .env file
-        $this->apiUrl = env('MOCKAPI_URL');
+        $upstream = $this->gateway->resource('announcements', 'GET', '');
+
+        if ($upstream->getStatusCode() >= 400) {
+            return view('dashboard', [
+                'announcements' => [],
+                'error' => 'Could not load announcements.',
+            ]);
+        }
+
+        $data = json_decode($upstream->getContent(), true);
+        if (! is_array($data)) {
+            return view('dashboard', [
+                'announcements' => [],
+                'error' => 'Invalid announcements response.',
+            ]);
+        }
+
+        $rows = array_is_list($data) ? $data : [$data];
+        $announcements = array_map(static function (array $row): array {
+            $ts = $row['date'] ?? null;
+
+            return [
+                'title' => $row['title'] ?? '',
+                'date' => is_numeric($ts) ? date('Y-m-d H:i', (int) $ts) : (string) $ts,
+                'content' => $row['content'] ?? $row['description'] ?? '',
+            ];
+        }, $rows);
+
+        return view('dashboard', ['announcements' => $announcements]);
     }
 
-    // GET all announcements
-    public function apiAnnouncements(): JsonResponse
+    public function apiAnnouncements(): Response
     {
-         $response = Http::get($this->apiUrl);
-
-        return response()->json($response->json());
+        return $this->gateway->resource('announcements', 'GET', '');
     }
 
-    // OPTIONAL: GET single announcement
-    public function show(string $id): JsonResponse
+    public function show(string $id): Response
     {
-        $response = Http::get($this->apiUrl . '/' . $id);
-
-        return response()->json($response->json());
+        return $this->gateway->resource('announcements', 'GET', $id);
     }
 
-    // OPTIONAL: CREATE announcement
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): Response
     {
         $request->validate([
             'title' => 'required',
         ]);
 
-        $response = Http::post($this->apiUrl, [
+        return $this->gateway->resource('announcements', 'POST', '', [
             'title' => $request->title,
-        ]);
-
-        return response()->json([
-            'message' => 'Announcement created successfully',
-            'data' => $response->json()
         ]);
     }
 
-    // OPTIONAL: UPDATE announcement
-    public function update(Request $request, string $id): JsonResponse
+    public function update(Request $request, string $id): Response
     {
-        $response = Http::put($this->apiUrl . '/' . $id, [
-            'title' => $request->title,
-        ]);
+        $verb = $request->isMethod('patch') ? 'PATCH' : 'PUT';
 
-        return response()->json([
-            'message' => 'Announcement updated successfully',
-            'data' => $response->json()
+        return $this->gateway->resource('announcements', $verb, $id, [
+            'title' => $request->input('title'),
         ]);
     }
 
-    // OPTIONAL: DELETE announcement
-    public function destroy(string $id): JsonResponse
+    public function destroy(string $id): Response
     {
-        Http::delete($this->apiUrl . '/' . $id);
-
-        return response()->json([
-            'message' => 'Announcement deleted successfully'
-        ]);
+        return $this->gateway->resource('announcements', 'DELETE', $id);
     }
 }

@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'gateway' => [
+        'timeout' => (int) env('GATEWAY_HTTP_TIMEOUT', 15),
+        'routes' => [
+            'announcements' => env('MOCKAPI_URL'),
+        ],
+    ],
+
 ];
