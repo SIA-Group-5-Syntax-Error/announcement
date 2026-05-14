@@ -2,36 +2,76 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\JsonResponse;
 
 class AnnouncementController extends Controller
 {
-    public function index()
+    private string $apiUrl;
+
+    public function __construct()
     {
-        try {
+        // Make sure this exists in your .env file
+        $this->apiUrl = env('MOCKAPI_URL');
+    }
 
-            $response = Http::get('https://69f82c35dd0c226688ee33af.mockapi.io/announcements/');
+    // GET all announcements
+    public function apiAnnouncements(): JsonResponse
+    {
+         $response = Http::get($this->apiUrl);
 
-            if ($response->successful()) {
+        return response()->json([
+        'raw' => $response->body(),
+        'decoded' => $response->json()
+    ]);
+    }
 
-                $announcements = $response->json();
+    // OPTIONAL: GET single announcement
+    public function show(string $id): JsonResponse
+    {
+        $response = Http::get($this->apiUrl . '/' . $id);
 
-                return view('dashboard', compact('announcements'));
+        return response()->json($response->json());
+    }
 
-            } else {
+    // OPTIONAL: CREATE announcement
+    public function store(Request $request): JsonResponse
+    {
+        $request->validate([
+            'title' => 'required',
+        ]);
 
-                return view('dashboard', [
-                    'announcements' => [],
-                    'error' => 'Failed to fetch announcements.'
-                ]);
-            }
+        $response = Http::post($this->apiUrl, [
+            'title' => $request->title,
+        ]);
 
-        } catch (\Exception $e) {
+        return response()->json([
+            'message' => 'Announcement created successfully',
+            'data' => $response->json()
+        ]);
+    }
 
-            return view('dashboard', [
-                'announcements' => [],
-                'error' => 'Something went wrong.'
-            ]);
-        }
+    // OPTIONAL: UPDATE announcement
+    public function update(Request $request, string $id): JsonResponse
+    {
+        $response = Http::put($this->apiUrl . '/' . $id, [
+            'title' => $request->title,
+        ]);
+
+        return response()->json([
+            'message' => 'Announcement updated successfully',
+            'data' => $response->json()
+        ]);
+    }
+
+    // OPTIONAL: DELETE announcement
+    public function destroy(string $id): JsonResponse
+    {
+        Http::delete($this->apiUrl . '/' . $id);
+
+        return response()->json([
+            'message' => 'Announcement deleted successfully'
+        ]);
     }
 }
