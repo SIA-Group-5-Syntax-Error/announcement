@@ -1,5 +1,7 @@
 <?php
 
+// Creates cache and cache_locks tables for Laravel caching.
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

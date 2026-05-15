@@ -1,5 +1,7 @@
 <?php
 
+// Background job queue settings.
+
 return [
 
     /*

@@ -1,5 +1,7 @@
 <?php
 
+// User model for Laravel auth (default scaffold — not used by the gateway API yet).
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;

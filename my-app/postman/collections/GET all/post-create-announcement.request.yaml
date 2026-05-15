@@ -1,0 +1,18 @@
+$kind: http-request
+name: POST Create Announcement
+url: 'http://127.0.0.1:8000/api/announcements'
+method: POST
+headers:
+  - key: x-api-key
+    value: sk-gateway-it2r9-sia
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "New Announcement",
+      "description": "This is a new announcement description.",
+      "date": "2026-06-01"
+    }
+order: 3

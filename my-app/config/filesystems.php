@@ -1,5 +1,7 @@
 <?php
 
+// Disk paths for uploads and storage.
+
 return [
 
     /*

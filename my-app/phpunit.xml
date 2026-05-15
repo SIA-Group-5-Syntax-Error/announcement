@@ -32,5 +32,9 @@
         <env name="PULSE_ENABLED" value="false"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
         <env name="NIGHTWATCH_ENABLED" value="false"/>
+        <env name="MOCKAPI_URL" value="https://example.test/announcements"/>
+        <env name="GATEWAY_API_KEYS" value="test-gateway-key"/>
+        <env name="GATEWAY_LOG_REQUESTS" value="false"/>
+        <env name="GATEWAY_RETRY_TIMES" value="0"/>
     </php>
 </phpunit>

@@ -1,5 +1,7 @@
 <?php
 
+// Front controller: every browser/API request enters Laravel through this file.
+
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 

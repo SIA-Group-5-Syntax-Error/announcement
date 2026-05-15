@@ -1,0 +1,8 @@
+$kind: http-request
+name: GET All Announcements
+url: 'http://127.0.0.1:8000/api/announcements'
+method: GET
+headers:
+  - key: x-api-key
+    value: sk-gateway-it2r9-sia
+order: 1

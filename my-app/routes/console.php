@@ -1,5 +1,7 @@
 <?php
 
+// Artisan CLI commands (php artisan ...). Default Laravel inspire demo command.
+
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 

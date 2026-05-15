@@ -1,0 +1,21 @@
+$kind: http-request
+name: PUT Update Announcement
+url: 'http://127.0.0.1:8000/api/announcements'
+method: PUT
+headers:
+  - key: x-api-key
+    value: sk-gateway-it2r9-sia
+  - key: Content-Type
+    value: application/json
+queryParams:
+  - key: id
+    value: '1'
+body:
+  type: json
+  content: |-
+    {
+      "title": "Updated Announcement Title",
+      "description": "This is the fully updated description.",
+      "date": "2026-06-15"
+    }
+order: 4

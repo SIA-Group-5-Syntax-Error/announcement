@@ -3,6 +3,8 @@
 use Illuminate\Support\Str;
 use Pdo\Mysql;
 
+// Database connections (this project uses SQLite by default).
+
 return [
 
     /*

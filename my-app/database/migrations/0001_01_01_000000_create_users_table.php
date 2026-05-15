@@ -1,5 +1,7 @@
 <?php
 
+// Creates users, password_reset_tokens, and sessions tables.
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

@@ -1,0 +1,7 @@
+$kind: http-request
+name: http://127.0.0.1:8000/api/announcements
+url: http://127.0.0.1:8000/api/announcements
+method: GET
+headers:
+  x-api-key: sk-gateway-it2r9-sia
+order: 1778840548705

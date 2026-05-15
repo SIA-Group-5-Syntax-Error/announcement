@@ -1,5 +1,7 @@
 <?php
 
+// Main Laravel app settings (name, env, timezone, locale).
+
 return [
 
     /*

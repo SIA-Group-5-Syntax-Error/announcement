@@ -1,5 +1,7 @@
 <?php
 
+// Seeds the database with sample data when you run php artisan db:seed.
+
 namespace Database\Seeders;
 
 use App\Models\User;

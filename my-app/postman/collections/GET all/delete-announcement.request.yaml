@@ -1,0 +1,11 @@
+$kind: http-request
+name: DELETE Announcement
+url: 'http://127.0.0.1:8000/api/announcements'
+method: DELETE
+headers:
+  - key: x-api-key
+    value: sk-gateway-it2r9-sia
+queryParams:
+  - key: id
+    value: '1'
+order: 6

@@ -1,5 +1,7 @@
 <?php
 
+// Entry point for /api/gateway/{resource}/{path?} — generic proxy to any configured upstream.
+
 namespace App\Http\Controllers;
 
 use App\Services\Gateway\RemoteGateway;

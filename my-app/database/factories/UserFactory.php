@@ -1,5 +1,7 @@
 <?php
 
+// Generates fake User records for tests and seeding.
+
 namespace Database\Factories;
 
 use App\Models\User;

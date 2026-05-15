@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Str;
 
+// Web session cookies and storage (used by / dashboard, not the JSON API).
+
 return [
 
     /*

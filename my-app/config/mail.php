@@ -1,5 +1,7 @@
 <?php
 
+// Email / SMTP settings.
+
 return [
 
     /*

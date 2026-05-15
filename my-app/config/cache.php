@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Str;
 
+// Cache driver settings (file, database, redis, etc.).
+
 return [
 
     /*

@@ -2,6 +2,8 @@
 
 use App\Models\User;
 
+// Authentication guards and providers (login system — not used by API keys).
+
 return [
 
     /*

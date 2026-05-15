@@ -1,5 +1,7 @@
 <?php
 
+// Simple unit test placeholder (no HTTP / database).
+
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
